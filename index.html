@@ -507,10 +507,35 @@
   </div>
 
 </div>
-
+ 
+<!-- صوت الجاليري -->
 <audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3" preload="auto"></audio>
-
+ 
+<!-- أغنية عيد الميلاد - حطي اسم ملفك هنا -->
+<audio id="bgMusic" src="song.mp3" loop preload="auto"></audio>
+ 
+ 
+ 
 <script>
+  // ===== الأغنية =====
+  const bgMusic = document.getElementById('bgMusic');
+  let musicStarted = false;
+ 
+  function startMusicOnce() {
+    if (!musicStarted) {
+      musicStarted = true;
+      bgMusic.volume = 0.5;
+      bgMusic.play().catch(() => {});
+      document.removeEventListener('click', startMusicOnce);
+      document.removeEventListener('touchstart', startMusicOnce);
+      document.removeEventListener('keydown', startMusicOnce);
+    }
+  }
+ 
+  document.addEventListener('click', startMusicOnce);
+  document.addEventListener('touchstart', startMusicOnce);
+  document.addEventListener('keydown', startMusicOnce);
+ 
   // Custom cursor
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', e => {
@@ -527,7 +552,7 @@
       cursor.style.height = '20px';
     });
   });
-
+ 
   // Confetti
   const colors = ['#FF6B9D','#FF8E53','#FFD166','#06D6A0','#A78BFA','#F472B6','#34D399'];
   const confWrap = document.getElementById('confetti');
@@ -545,7 +570,7 @@
     `;
     confWrap.appendChild(d);
   }
-
+ 
   // Floating hearts
   const heartEmojis = ['💖','💗','💓','✨','🌸','⭐','💕'];
   setInterval(() => {
@@ -558,7 +583,7 @@
     document.body.appendChild(h);
     setTimeout(() => h.remove(), 6000);
   }, 800);
-
+ 
   // Gallery
   function toggleGallery() {
     const g = document.getElementById('gallery');
@@ -572,7 +597,7 @@
       document.querySelector('.gallery-btn').textContent = 'اعرضي الصور 📸';
     }
   }
-
+ 
   // Photo popup
   function openPhoto(img) {
     document.getElementById('photoFull').src = img.src;
@@ -581,7 +606,7 @@
   function closePhoto() {
     document.getElementById('photoPopup').classList.remove('open');
   }
-
+ 
   // Wish popup
   function showPopup(name, text, emoji) {
     document.getElementById('popupName').textContent = 'من ' + name;
@@ -593,7 +618,7 @@
   function closePopup() {
     document.getElementById('popup').classList.remove('open');
   }
-
+ 
   // Fireworks burst on popup
   function launchFireworks() {
     for (let i = 0; i < 20; i++) {
@@ -613,7 +638,7 @@
       setTimeout(() => fw.remove(), 900);
     }
   }
-
+ 
   const style = document.createElement('style');
   style.textContent = `
     @keyframes fwPop {
